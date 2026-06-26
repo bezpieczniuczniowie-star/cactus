@@ -1,0 +1,82 @@
+{
+  "name": "cactus-mailer",
+  "version": "1.0.0",
+  "description": "Enterprise-Grade Email Service Platform - Powerful email delivery, tracking, and analytics engine",
+  "keywords": [
+    "email",
+    "mailer",
+    "sendgrid",
+    "mailgun",
+    "email-service",
+    "smtp",
+    "nodejs",
+    "nestjs"
+  ],
+  "license": "MIT",
+  "author": "bezpieczniuczniowie-star",
+  "homepage": "https://bezpieczniuczniowie-star.github.io/cactus",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bezpieczniuczniowie-star/cactus.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bezpieczniuczniowie-star/cactus/issues"
+  },
+  "private": true,
+  "workspaces": [
+    "apps/api",
+    "apps/dashboard",
+    "apps/desktop",
+    "apps/mobile",
+    "apps/worker",
+    "packages/sdk",
+    "packages/cli",
+    "packages/types"
+  ],
+  "scripts": {
+    "start": "npm run start:api",
+    "start:api": "cd apps/api && npm run start",
+    "start:dev": "docker-compose up -d && npm run logs",
+    "start:prod": "docker-compose -f docker-compose.prod.yml up -d",
+    "build": "npm run build --workspaces",
+    "build:api": "cd apps/api && npm run build",
+    "build:dashboard": "cd apps/dashboard && npm run build",
+    "build:desktop": "cd apps/desktop && npm run build",
+    "build:mobile": "cd apps/mobile && npm run build",
+    "test": "npm run test --workspaces",
+    "test:integration": "npm run test:integration --workspaces",
+    "test:e2e": "npm run test:e2e --workspaces",
+    "test:coverage": "npm run test:coverage --workspaces",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,css,scss}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,css,scss}\"",
+    "migrate": "cd apps/api && npm run migrate",
+    "migrate:create": "cd apps/api && npm run migrate:create",
+    "seed": "cd apps/api && npm run seed",
+    "down": "docker-compose down",
+    "down:volumes": "docker-compose down -v",
+    "logs": "docker-compose logs -f",
+    "logs:api": "docker-compose logs -f api",
+    "logs:dashboard": "docker-compose logs -f dashboard",
+    "logs:worker": "docker-compose logs -f worker",
+    "ps": "docker-compose ps",
+    "clean": "npm run clean --workspaces && rm -rf node_modules",
+    "install-all": "npm ci && npm ci --workspaces",
+    "release": "standard-version",
+    "release:changelog": "standard-version --changelog"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.1",
+    "standard-version": "^9.5.0",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

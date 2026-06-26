@@ -1,0 +1,130 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: cactus-postgres
+    environment:
+      POSTGRES_USER: cactus
+      POSTGRES_PASSWORD: cactus_password
+      POSTGRES_DB: cactus_db
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infra/postgresql/init.sql:/docker-entrypoint-initdb.d/01-init.sql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U cactus']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cactus-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: cactus-redis
+    command: redis-server --requirepass cactus_redis_pass --appendonly yes
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', '--raw', 'incr', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cactus-network
+
+  api:
+    build:
+      context: .
+      dockerfile: ./apps/api/Dockerfile
+      target: development
+    container_name: cactus-api
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      API_URL: http://localhost:3000
+      DATABASE_URL: postgresql://cactus:cactus_password@postgres:5432/cactus_db
+      REDIS_URL: redis://:cactus_redis_pass@redis:6379
+      JWT_SECRET: dev-super-secret-jwt-key-change-in-production
+      API_KEY_SECRET: dev-api-key-secret-key-change-in-production
+      SMTP_HOST: smtp.gmail.com
+      SMTP_PORT: 587
+      SMTP_USER: your-email@gmail.com
+      SMTP_PASS: your-app-password
+      SMTP_FROM: noreply@cactusmailer.com
+      LOG_LEVEL: debug
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./apps/api/src:/app/src
+      - /app/node_modules
+    command: npm run start:dev
+    networks:
+      - cactus-network
+    restart: unless-stopped
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: ./apps/dashboard/Dockerfile
+      target: development
+    container_name: cactus-dashboard
+    depends_on:
+      - api
+    environment:
+      REACT_APP_API_URL: http://localhost:3000
+      REACT_APP_WS_URL: ws://localhost:3000
+    ports:
+      - '3001:3000'
+    volumes:
+      - ./apps/dashboard/src:/app/src
+      - /app/node_modules
+    command: npm start
+    networks:
+      - cactus-network
+    restart: unless-stopped
+
+  worker:
+    build:
+      context: .
+      dockerfile: ./apps/worker/Dockerfile
+      target: development
+    container_name: cactus-worker
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://cactus:cactus_password@postgres:5432/cactus_db
+      REDIS_URL: redis://:cactus_redis_pass@redis:6379
+      WORKER_CONCURRENCY: 10
+      LOG_LEVEL: debug
+    volumes:
+      - ./apps/worker/src:/app/src
+      - /app/node_modules
+    command: npm run start:dev
+    networks:
+      - cactus-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  cactus-network:
+    driver: bridge
