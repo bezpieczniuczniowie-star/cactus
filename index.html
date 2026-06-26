@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CACTUS Mailer - Enterprise-Grade Email Service Platform. Powerful email delivery, tracking, and analytics engine inspired by Mailgun.">
+    <meta name="keywords" content="email service, mailgun alternative, email delivery, API, SMTP">
+    <title>CACTUS Mailer - Enterprise Email Service Platform</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">🌵 CACTUS Mailer</div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#docs">Docs</a></li>
+                <li><a href="#community">Community</a></li>
+                <li><a href="https://github.com/bezpieczniuczniowie-star/cactus" target="_blank" class="btn-github">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Enterprise Email Made Simple</h1>
+                <p>CACTUS Mailer is a powerful, open-source email service platform. Send emails, track opens & clicks, manage templates, and scale to millions of messages.</p>
+                <div class="hero-buttons">
+                    <a href="#getting-started" class="btn btn-primary">Get Started</a>
+                    <a href="https://docs.cactusmailer.com" target="_blank" class="btn btn-secondary">Read Docs</a>
+                </div>
+                <div class="hero-badges">
+                    <span class="badge">⚡ 100K+ emails/min</span>
+                    <span class="badge">🔒 Enterprise Grade</span>
+                    <span class="badge">📊 Real-time Analytics</span>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="images/dashboard.png" alt="CACTUS Dashboard" class="dashboard-preview">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Powerful Features</h2>
+            <p class="section-subtitle">Everything you need to deliver emails at scale</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📨</div>
+                    <h3>Email Sending</h3>
+                    <p>High-throughput email delivery with SMTP, SendGrid, AWS SES integrations. Batch sending with scheduling.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔑</div>
+                    <h3>API Key Management</h3>
+                    <p>Secure API keys with format CTS_12digits_6letters. Rate limiting, key rotation, and audit logs included.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Real-time Analytics</h3>
+                    <p>Track opens, clicks, bounces. Get detailed insights with customizable dashboards and exportable reports.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>Email Templates</h3>
+                    <p>Built-in template engine with Handlebars support. Create reusable templates with dynamic variables.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <h3>Webhooks & Events</h3>
+                    <p>Event streaming system. Push email events to your servers, Slack, Discord, or any webhook endpoint.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h3>Security & Compliance</h3>
+                    <p>TLS/SSL encryption, GDPR compliant, SOC 2 ready. Custom domains with SPF/DKIM/DMARC support.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🧪</div>
+                    <h3>A/B Testing</h3>
+                    <p>Test subject lines and content variants to optimize your email performance.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>Advanced Routing</h3>
+                    <p>Intelligent retry logic, suppression lists, bounce handling, and automatic deliverability optimization.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Start Section -->
+    <section id="getting-started" class="quick-start">
+        <div class="container">
+            <h2>Quick Start</h2>
+            <p class="section-subtitle">Get up and running in minutes</p>
+            
+            <div class="quick-start-content">
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Installation</h3>
+                        <pre><code>git clone https://github.com/bezpieczniuczniowie-star/cactus.git
+cd cactus
+docker-compose up -d</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Create API Key</h3>
+                        <pre><code>curl -X POST http://localhost:3000/api/v1/keys \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "My Key"}'</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Send Email</h3>
+                        <pre><code>curl -X POST http://localhost:3000/api/v1/messages/send \
+  -H "Authorization: CTS_987654321098_ABCDEF_null" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "to": "user@example.com",
+    "from": "noreply@yourdomain.com",
+    "subject": "Hello!",
+    "html": "<h1>Welcome!</h1>"
+  }'</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h3>Track Delivery</h3>
+                        <p>Access your dashboard at <code>http://localhost:3000</code> to monitor real-time delivery status, opens, clicks, and analytics.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="comparison">
+        <div class="container">
+            <h2>Why CACTUS?</h2>
+            <p class="section-subtitle">Compare with other email services</p>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>CACTUS</th>
+                        <th>Mailgun</th>
+                        <th>SendGrid</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Open Source</td>
+                        <td>✅</td>
+                        <td>❌</td>
+                        <td>❌</td>
+                    </tr>
+                    <tr>
+                        <td>Self-Hosted</td>
+                        <td>✅</td>
+                        <td>❌</td>
+                        <td>❌</td>
+                    </tr>
+                    <tr>
+                        <td>Email Tracking</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                    </tr>
+                    <tr>
+                        <td>Templates</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                    </tr>
+                    <tr>
+                        <td>Webhooks</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                    </tr>
+                    <tr>
+                        <td>A/B Testing</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                    </tr>
+                    <tr>
+                        <td>Custom Domains</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                    </tr>
+                    <tr>
+                        <td>Starting Price</td>
+                        <td>Free</td>
+                        <td>$35/mo</td>
+                        <td>$30/mo</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- API Examples Section -->
+    <section class="api-examples">
+        <div class="container">
+            <h2>API Examples</h2>
+            <p class="section-subtitle">Simple REST API for all your email needs</p>
+            
+            <div class="examples-grid">
+                <div class="example">
+                    <h4>Send Template Email</h4>
+                    <pre><code>POST /api/v1/messages/send-template
+
+{
+  "to": "user@example.com",
+  "template_id": "tpl_welcome",
+  "variables": {
+    "name": "John",
+    "code": "ABC123"
+  }
+}</code></pre>
+                </div>
+
+                <div class="example">
+                    <h4>Get Analytics</h4>
+                    <pre><code>GET /api/v1/analytics?period=7days
+
+{
+  "sent": 15420,
+  "delivered": 15123,
+  "opened": 4536,
+  "clicked": 1247,
+  "open_rate": "29.8%"
+}</code></pre>
+                </div>
+
+                <div class="example">
+                    <h4>Register Webhook</h4>
+                    <pre><code>POST /api/v1/webhooks
+
+{
+  "url": "https://yourserver.com/webhook",
+  "events": [
+    "sent",
+    "opened",
+    "clicked",
+    "bounced"
+  ]
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2>Simple Pricing</h2>
+            <p class="section-subtitle">Choose the plan that fits your needs</p>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Free</h3>
+                    <div class="price">$0</div>
+                    <p class="price-desc">Self-hosted, unlimited emails</p>
+                    <ul>
+                        <li>✅ Unlimited emails</li>
+                        <li>✅ All features</li>
+                        <li>✅ Community support</li>
+                        <li>❌ Premium support</li>
+                    </ul>
+                    <a href="https://github.com/bezpieczniuczniowie-star/cactus" class="btn btn-secondary">Self-Host</a>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="badge-featured">Popular</div>
+                    <h3>Pro</h3>
+                    <div class="price">$99<span>/mo</span></div>
+                    <p class="price-desc">Managed cloud hosting</p>
+                    <ul>
+                        <li>✅ 100K emails/month</li>
+                        <li>✅ Dedicated support</li>
+                        <li>✅ Advanced analytics</li>
+                        <li>✅ Custom domains</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Start Free Trial</a>
+                </div>
+
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">Custom</div>
+                    <p class="price-desc">Unlimited scale</p>
+                    <ul>
+                        <li>✅ Unlimited emails</li>
+                        <li>✅ 24/7 support</li>
+                        <li>✅ SLA guarantee</li>
+                        <li>✅ Custom integrations</li>
+                    </ul>
+                    <a href="mailto:support@cactusmailer.com" class="btn btn-secondary">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section id="community" class="community">
+        <div class="container">
+            <h2>Join Our Community</h2>
+            <p class="section-subtitle">Connect with developers worldwide</p>
+            
+            <div class="community-channels">
+                <div class="channel">
+                    <h3>Discord</h3>
+                    <p>Join thousands of developers discussing features and best practices</p>
+                    <a href="https://discord.gg/cactus-mailer" class="btn btn-secondary">Join Discord</a>
+                </div>
+
+                <div class="channel">
+                    <h3>GitHub</h3>
+                    <p>Star the project, contribute code, and follow development</p>
+                    <a href="https://github.com/bezpieczniuczniowie-star/cactus" class="btn btn-secondary">View on GitHub</a>
+                </div>
+
+                <div class="channel">
+                    <h3>Twitter</h3>
+                    <p>Follow us for updates, tips, and announcements</p>
+                    <a href="https://twitter.com/cactusmailer" class="btn btn-secondary">Follow @cactusmailer</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to get started?</h2>
+            <p>Join hundreds of developers using CACTUS for their email needs</p>
+            <div class="cta-buttons">
+                <a href="https://github.com/bezpieczniuczniowie-star/cactus" class="btn btn-primary">Get Started</a>
+                <a href="https://docs.cactusmailer.com" class="btn btn-secondary">Read Documentation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>CACTUS</h4>
+                    <p>Enterprise-Grade Email Service Platform</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="https://github.com/bezpieczniuczniowie-star/cactus/projects">Roadmap</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://docs.cactusmailer.com">Documentation</a></li>
+                        <li><a href="https://github.com/bezpieczniuczniowie-star/cactus/issues">Issues</a></li>
+                        <li><a href="https://github.com/bezpieczniuczniowie-star/cactus/discussions">Discussions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="/privacy.html">Privacy</a></li>
+                        <li><a href="/terms.html">Terms</a></li>
+                        <li><a href="/license.html">License</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 CACTUS Mailer. All rights reserved.</p>
+                <p>Made with 🌵 by the CACTUS Team</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
